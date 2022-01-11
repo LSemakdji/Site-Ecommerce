@@ -34,6 +34,7 @@ class ProductAdminController extends AbstractController
             'formView' => $formView,
         ]);
     }
+
     #[Route('/admin/product/{id}/edit', name: 'product_admin_edit')]
     public function edit($id, Request $request, SluggerInterface $slugger, EntityManagerInterface $em, ProductRepository $productRepository)
     {
@@ -42,6 +43,7 @@ class ProductAdminController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $product->setSlug(strtolower($slugger->slug($product->getName())));
+
             $em->flush();
             return $this->redirectToRoute('product_show', [
                 'category_slug' => $product->getCategory()->getSlug(),
