@@ -6,13 +6,15 @@ use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Validator\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\Validator\Validator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+#[IsGranted("ROLE_ADMIN", message: "Vous n'avez pas le droit d'accéder à cette ressource")]
 class ProductAdminController extends AbstractController
 {
     #[Route('/admin/product/create', name: 'product_admin_create')]

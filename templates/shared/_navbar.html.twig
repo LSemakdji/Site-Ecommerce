@@ -1,17 +1,21 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="{{ path ('homepage')}}">Accueil</a>
+		<a class="navbar-brand" href="{{ path ('homepage')}}">Site E-commerce (logo)</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
 		<div class="collapse navbar-collapse" id="navbarColor03">
 			<ul class="navbar-nav me-auto">
-				<li class="nav-item">
-					<a class="nav-link active" href="{{ path ('category_show')}}">Catégories
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Catégories</a>
+					<div class="dropdown-menu">
 
-						<span class="visually-hidden">(current)</span>
-					</a>
+						{% for c in categoryRepository.findAll()%}
+							<a class="dropdown-item" href="#">{{c.name}}</a>
+						{% endfor %}
+
+					</div>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="#">Qui sommes-nous?</a>
@@ -19,25 +23,28 @@
 				<li class="nav-item">
 					<a class="nav-link" href="#">Contact</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">À propos des sites
-					</a>
-				</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="{{path('product_admin_create')}}">Nouveau produit</a>
-						<a class="dropdown-item" href="{{path('category_admin_create')}}">Nouvelle catégorie</a>
-						<a class="dropdown-item" href="#">Something else here</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">Separated link</a>
-					</div>
-				</li>
 			</ul>
-			<form class="d-flex">
-				<input class="form-control me-sm-2" type="text" placeholder="Search">
-				<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-			</form>
+			<ul class="navbar-nav">
+				{% if app.user %}
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mon compte</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="#">Mon Profile</a>
+							<a class="dropdown-item" href="#">Historique des achats</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{{path ('security_logout')}}">Deconexion</a>
+						</div>
+					</li>
+				{% else %}
+					<li class="nav-item">
+						<a href="#" class="nav-link">Inscription</a>
+					</li>
+					<li class="nav-item">
+						<a href="{{path ('security_login')}}" class="nav-link">Connexion</a>
+					</li>
+				{% endif %}
+
+			</ul>
 		</div>
 	</div>
 </nav>

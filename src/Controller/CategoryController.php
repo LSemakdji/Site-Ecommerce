@@ -13,11 +13,9 @@ class CategoryController extends AbstractController
     public function show(CategoryRepository $categoryRepository, ProductRepository $productRepository)
     {
         $category = $categoryRepository->findall();
-        $product = $productRepository->findAll();
 
         return $this->render('category/public/show.html.twig', [
             'category' => $category,
-            'product' => $product,
         ]);
     }
 }

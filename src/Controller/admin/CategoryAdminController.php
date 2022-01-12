@@ -4,14 +4,16 @@ namespace App\Controller\admin;
 
 use App\Entity\Category;
 use App\Form\CategoryType;
-use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+#[IsGranted("ROLE_ADMIN", message: "Vous n'avez pas le droit d'accéder à cette ressource")]
 class CategoryAdminController extends AbstractController
 {
     #[Route('/admin/category/create', name: 'category_admin_create')]
