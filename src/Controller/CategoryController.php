@@ -18,4 +18,20 @@ class CategoryController extends AbstractController
             'category' => $category,
         ]);
     }
+    #[Route('/category/{slug}', name: 'category_product_show')]
+    public function category($slug, CategoryRepository $categoryRepository)
+    {
+        $category = $categoryRepository->findOneBy([
+            'slug' => $slug
+        ]);
+        if (!$category) {
+            $this->addFlash('warning', "La catégorie n'existe pas");
+            return $this->redirectToRoute('category_show');
+            //throw $this->createNotFoundException("La Catégorie demandée n'existe pas !");
+        }
+        return $this->render('category/public/category_product.html.twig', [
+            'slug' => $slug,
+            'category' => $category,
+        ]);
+    }
 }
