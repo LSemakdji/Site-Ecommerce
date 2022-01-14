@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Cart\CartService;
+use App\Form\CartConfirmationType;
 use App\Repository\ProductRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,10 +21,12 @@ class CartController extends AbstractController
     #[Route('/cart', name: 'cart_show')]
     public function show()
     {
+        $form = $this->createForm(CartConfirmationType::class);
         $detailedCart = $this->cartService->getDetailedCartItems();
         $total = $this->cartService->getTotal();
 
         return $this->render('cart/index.html.twig', [
+            'confirmationForm' => $form->createView(),
             'items' => $detailedCart,
             'total' => $total,
         ]);
@@ -41,7 +44,7 @@ class CartController extends AbstractController
 
         $this->cartService->add($id);
         //gerer mes messages 
-        $this->addFlash('success', "Le produit à été ajouté au panier");
+        //$this->addFlash('success', "Le produit à été ajouté au panier");
 
         if ($request->query->get('returnToCart')) {
             return $this->redirectToRoute('cart_show');
@@ -61,7 +64,6 @@ class CartController extends AbstractController
             throw $this->createNotFoundException("Le produit $id n'existe pas et ne peut pas être décrementé ");
         }
         $this->cartService->decrement($id);
-        $this->addFlash('success', "Le produit a été supprimé du panier");
         return $this->redirectToRoute('cart_show');
     }
 
@@ -73,7 +75,6 @@ class CartController extends AbstractController
             throw $this->createNotFoundException("Le produit $id n'existe pas et ne peut pas être supprimé ");
         }
         $this->cartService->remove($id);
-        $this->addFlash('success', "Le produit a été supprimé du panier");
         return $this->redirectToRoute('cart_show');
     }
 }
