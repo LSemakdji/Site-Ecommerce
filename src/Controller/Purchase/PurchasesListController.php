@@ -9,9 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PurchasesListController extends AbstractController
 {
-
-
-
     #[Route('/purchases', name: 'purchase_index')]
     #[IsGranted("ROLE_USER", message: 'Vous devez être connecté pour accéder à vos commandes')]
     public function index()
