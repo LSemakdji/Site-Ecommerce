@@ -142,6 +142,9 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "stripe/stripe-php": {
+        "version": "v7.110.0"
+    },
     "symfony/cache": {
         "version": "v6.0.2"
     },
