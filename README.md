@@ -5,7 +5,7 @@ Site E-commerce simple :
 
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)  
 ## Technologies:
-* [PHP]: Version 8.0.2
+* [PHP](https://www.php.net/): Version 8.0.2
 * [SYMFONY](https://symfony.com): Version 6.0
 * [Stripe](https://stripe.com)
 * [Mailtrap](https://mailttrap.io)  
