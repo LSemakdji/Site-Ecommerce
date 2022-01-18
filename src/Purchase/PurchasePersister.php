@@ -24,9 +24,7 @@ class PurchasePersister
     public function storePurchase(Purchase $purchase)
     {
         //Integrer tout ce qu'il faut et de persister la purchase
-        $purchase->setUser($this->security->getUser())
-            ->setPurchasedAt(new DateTime())
-            ->setTotal($this->cartService->getTotal());
+        $purchase->setUser($this->security->getUser());
         $this->em->persist($purchase);
 
         foreach ($this->cartService->getDetailedCartItems() as $cartItem) {
